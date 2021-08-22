@@ -19,15 +19,15 @@
             Source="{x:Bind ViewModel.Source, Mode=OneWay}" />
 
 
-        <StackPanel
+        <!--<StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}">
             <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
             <TextBlock x:Uid="WebView_Loading" />
-        </StackPanel>
+        </StackPanel>-->
 
-        <StackPanel
+        <!--<StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="{x:Bind ViewModel.HasFailures, Mode=OneWay}">
@@ -52,6 +52,6 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE774;" />
                 </Button>
             </StackPanel>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Page>
