@@ -4,6 +4,7 @@ using DevUtils.Activation;
 using DevUtils.Contracts.Services;
 using DevUtils.Core.Contracts.Services;
 using DevUtils.Core.Services;
+using DevUtils.DatabaseAccess;
 using DevUtils.Helpers;
 using DevUtils.Services;
 using DevUtils.ViewModels;
@@ -60,6 +61,9 @@ namespace DevUtils
 
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();
+
+            services.AddSingleton<Local>();
+            services.AddScoped<MultiEnvSearchService>();
 
             // Views and ViewModels
             services.AddTransient<ShellPage>();
