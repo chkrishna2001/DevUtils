@@ -23,6 +23,7 @@ namespace DevUtils.Services
             Configure<ContentGridDetailViewModel, ContentGridDetailPage>();
             Configure<DataGridViewModel, DataGridPage>();
             Configure<SettingsViewModel, SettingsPage>();
+            Configure<DatabasesViewModel, DatabasesPage>();
         }
 
         public Type GetPageType(string key)

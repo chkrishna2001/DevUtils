@@ -1,13 +1,16 @@
-﻿using System;
-
+﻿
 using CommunityToolkit.Mvvm.ComponentModel;
+using DevUtils.Core;
 
 namespace DevUtils.ViewModels
 {
     public class MainViewModel : ObservableRecipient
     {
-        public MainViewModel()
+        private readonly DevUtilContext devUtilContext;
+
+        public MainViewModel(DevUtilContext devUtilContext)
         {
+            this.devUtilContext = devUtilContext;
         }
     }
 }

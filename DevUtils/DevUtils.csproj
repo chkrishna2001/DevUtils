@@ -15,6 +15,7 @@
     <NoWarn>CA1416, $(NoWarn)</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Views\DatabasesPage.xaml" />
     <None Remove="Views\MultiEnvSearchPage.xaml" />
   </ItemGroup>
 
@@ -27,19 +28,23 @@
     <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.0.3" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.3" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.0.3" />
-    <PackageReference Include="Dapper" Version="2.0.90" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.0" />
+    <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.4" />
     <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.13.1" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.114.4" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DevUtils.Core\DevUtils.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DatabasesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\MultiEnvSearchPage.xaml">

@@ -3,8 +3,6 @@
 using DevUtils.Contracts.Services;
 using DevUtils.Contracts.ViewModels;
 using DevUtils.Helpers;
-
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -84,6 +82,30 @@ namespace DevUtils.Services
         public bool NavigateTo(string pageKey, object parameter = null, bool clearNavigation = false)
         {
             var pageType = _pageService.GetPageType(pageKey);
+
+            if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
+            {
+                _frame.Tag = clearNavigation;
+                var vmBeforeNavigation = _frame.GetPageViewModel();
+                var navigated = _frame.Navigate(pageType, parameter);
+                if (navigated)
+                {
+                    _lastParameterUsed = parameter;
+                    if (vmBeforeNavigation is INavigationAware navigationAware)
+                    {
+                        navigationAware.OnNavigatedFrom();
+                    }
+                }
+
+                return navigated;
+            }
+
+            return false;
+        }
+
+        public bool NavigateTo<T>(object parameter = null, bool clearNavigation = false)
+        {
+            var pageType = _pageService.GetPageType(typeof(T).FullName);
 
             if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
             {

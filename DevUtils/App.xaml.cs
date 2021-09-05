@@ -2,16 +2,19 @@
 
 using DevUtils.Activation;
 using DevUtils.Contracts.Services;
+using DevUtils.Core;
+using DevUtils.Core.Contracts;
 using DevUtils.Core.Contracts.Services;
 using DevUtils.Core.Services;
-using DevUtils.DatabaseAccess;
 using DevUtils.Helpers;
 using DevUtils.Services;
 using DevUtils.ViewModels;
 using DevUtils.Views;
-
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using System.IO;
+using Windows.Storage;
 
 // To learn more about WinUI3, see: https://docs.microsoft.com/windows/apps/winui/winui3/.
 namespace DevUtils
@@ -37,6 +40,8 @@ namespace DevUtils
         {
             base.OnLaunched(args);
             var activationService = Ioc.Default.GetService<IActivationService>();
+            var context = Ioc.Default.GetRequiredService<DevUtilContext>();
+            context.Database.EnsureCreated();
             await activationService.ActivateAsync(args);
         }
 
@@ -47,7 +52,12 @@ namespace DevUtils
 
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
+            var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, "DevUtils.db");
+            services.AddDbContext<DevUtilContext>(builder =>
+            {
+                builder.UseSqlite($"Filename={path}");
 
+            }, ServiceLifetime.Singleton);
             // Other Activation Handlers
 
             // Services
@@ -61,9 +71,9 @@ namespace DevUtils
 
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();
+            services.AddSingleton<IDatabaseService, DatabaseService>();
 
-            services.AddSingleton<Local>();
-            services.AddScoped<MultiEnvSearchService>();
+            services.AddSingleton<IMultiEnvSearchService, MultiEnvSearchService>();
 
             // Views and ViewModels
             services.AddTransient<ShellPage>();
@@ -84,6 +94,8 @@ namespace DevUtils
             services.AddTransient<DataGridPage>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
+            services.AddTransient<DatabasesViewModel>();
+            services.AddTransient<DatabasesPage>();
             return services.BuildServiceProvider();
         }
     }

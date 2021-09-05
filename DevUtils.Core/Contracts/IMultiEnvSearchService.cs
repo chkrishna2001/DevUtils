@@ -1,12 +1,11 @@
 ﻿using DevUtils.Core.Models;
-using DevUtils.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DevUtils.Contracts.Services
+namespace DevUtils.Core.Contracts
 {
     public interface IMultiEnvSearchService
     {
-        IEnumerable<ProjectDetails> GetProjectDetails();
+        Task<List<DatabaseServer>> GetDatabaseServers();
     }
 }

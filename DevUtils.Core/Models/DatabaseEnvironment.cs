@@ -2,15 +2,15 @@
 
 namespace DevUtils.Core.Models
 {
-    public class DatabaseServer
+    public class DatabaseEnvironment
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        public string DatabaseName { get; set; }
+        public int DatabaseId { get; set; }
         [Required]
-        public string DbServerName { get; set; }
+        public string Name { get; set; }
         [Required]
-        public string StorageType { get; set; }
+        public string ConnectionString { get; set; }
     }
 }
